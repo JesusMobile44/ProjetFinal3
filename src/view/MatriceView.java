@@ -17,11 +17,11 @@ public class MatriceView extends GridPane{
                 tf.setAlignment(Pos.CENTER);
                 tf.setEditable(true);
 
-                if (String.valueOf(matrice.getTab()[x][y])==null){
+                if (String.valueOf(matrice.getMatriceTab()[x][y])==null){
                     tf.setText("0");
                 }
                 else {
-                    tf.setText(String.valueOf(matrice.getTab()[x][y]));
+                    tf.setText(String.valueOf(matrice.getMatriceTab()[x][y]));
                 }
 
                 setRowIndex(tf,y);
