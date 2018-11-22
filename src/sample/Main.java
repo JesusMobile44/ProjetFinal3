@@ -22,15 +22,18 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         BorderPane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Matrice matrice1 =new Matrice(3,3 );
+        Matrice matrice2 =new Matrice(3,3 );
+
 
         tabPane.getTabs().add(new BetterTab(
-                new Matrice(3,3 ),
-                new Matrice(3,3 ),
+                matrice1,
+                matrice2,
                 new MatriceView(
-                        new Matrice(3,3)
+                       matrice1
                 ),
                 new MatriceView(
-                        new Matrice(3,3)
+                        matrice2
                 )
         ));
 
@@ -86,8 +89,8 @@ public class Main extends Application {
                 (int)spinnerHauteur2.getValue()
         }};
 
-        Matrice tempo1= new Matrice(dimensions[1][1], dimensions[1][2]);
-        Matrice tempo2= new Matrice(dimensions[2][1], dimensions[2][2]);
+        Matrice tempo1= new Matrice(dimensions[0][0], dimensions[0][1]);
+        Matrice tempo2= new Matrice(dimensions[1][0], dimensions[1][1]);
 
 
         tabPane.getTabs().add(
