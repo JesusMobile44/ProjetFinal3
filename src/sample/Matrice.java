@@ -136,13 +136,15 @@ public class Matrice {
         return null;
     }
     /*
+
     public int determinant(){ /////////////pas fini
-        int resultat = 0;
+        int determinant = 0;
         if (this.verifierCarre()){
             for (int i=0;i<this.getWidth();i++){
                 for (int j=0;j<this.getHeight();j++){
                     Matrice temp = new Matrice(i-1,j-1);
-
+                    determinant = this.getMatriceTab()[0][0];
+                    this.getMatriceTab()[i+1][j+1]=temp.getMatriceTab()[i][j];
                 }
             }
         }
