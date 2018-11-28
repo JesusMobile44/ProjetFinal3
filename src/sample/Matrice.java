@@ -66,6 +66,11 @@ public class Matrice {
         System.out.print(2);
         return null;
     }
+
+    public Matrice inversion(){
+        return null;
+    }
+
     public Matrice multiParNombre(int multi){
         Matrice resultat = new Matrice(this.getWidth(),this.getHeight());
         for (int j=0;j<this.getWidth();j++){
@@ -135,6 +140,10 @@ public class Matrice {
             }
             return resultat;
         }
+        return null;
+    }
+
+    public Matrice produitTensoriel(Matrice matrice){
         return null;
     }
     /*

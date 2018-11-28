@@ -2,7 +2,6 @@ package sample;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -11,13 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.MatriceView;
 
-import java.util.ArrayList;
-
 public class Main extends Application {
 
     public static TabPane tabPane = new TabPane();
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -25,27 +20,17 @@ public class Main extends Application {
         Matrice matrice1 =new Matrice(3,3 );
         Matrice matrice2 =new Matrice(3,3 );
 
-
         tabPane.getTabs().add(new BetterTab(
-                matrice1,
-                matrice2,
-                new MatriceView(
-                       matrice1
-                ),
-                new MatriceView(
-                        matrice2
-                )
+                new MatriceView(matrice1),
+                new MatriceView(matrice2)
         ));
-
 
         root.setCenter(tabPane);
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setMaximized(true);
         primaryStage.show();
-
-
-
     }
 
 
@@ -95,8 +80,6 @@ public class Main extends Application {
 
         tabPane.getTabs().add(
                 new BetterTab(
-                        tempo1,
-                        tempo2,
                         new MatriceView(tempo1),
                         new MatriceView(tempo2)
         ));

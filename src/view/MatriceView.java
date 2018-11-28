@@ -3,12 +3,11 @@ package view;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import sample.Main;
 import sample.Matrice;
 
 public class MatriceView extends GridPane{
 
-    Matrice matriceVraie = new Matrice(0,0);
+    Matrice matriceVraie;
 
     public MatriceView(Matrice matrice) {
         this.matriceVraie = matrice;
@@ -18,15 +17,21 @@ public class MatriceView extends GridPane{
         for (int y=0;y<matrice.getHeight();y++){
             for (int x=0;x<matrice.getWidth();x++){
                 TextField tf = new TextField();
-                tf.setPrefHeight(50);
-                tf.setPrefWidth(50);
+                tf.setPrefHeight(100);
+                tf.setPrefWidth(100);
                 tf.setAlignment(Pos.CENTER);
                 tf.setEditable(true);
-                tf.setOnAction(event -> {
-                    int[][] temporaire = matriceVraie.getMatriceTab();
-                    temporaire[getRowIndex(tf)][getColumnIndex(tf)]= Integer.valueOf(tf.getText());
-                    matriceVraie.setMatriceTab(temporaire);
 
+                int yFinal=y;
+                int xFinal=x;
+                tf.textProperty().addListener((observable, oldValue, newValue) -> {
+                    int[][] temporaire = matriceVraie.getMatriceTab();
+                    try {
+                        temporaire[yFinal][xFinal] = Integer.valueOf(newValue);
+                        matriceVraie.setMatriceTab(temporaire);
+                    }catch(Exception e){
+                        System.out.println("caracteres");
+                    }
                 });
 
                 if (String.valueOf(matrice.getMatriceTab()[y][x]).equals("")){
@@ -39,7 +44,6 @@ public class MatriceView extends GridPane{
                 setRowIndex(tf,y);
                 setColumnIndex(tf,x);
                 getChildren().add(tf);
-
             }
         }
     }
