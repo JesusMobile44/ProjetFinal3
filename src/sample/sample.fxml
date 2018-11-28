@@ -1,8 +1,45 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="controller.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="false" text="Fichier">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#genererMatrices" text="Créer une matrice" />
+                  <Menu mnemonicParsing="false" text="Importer">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#importerMatrice" text="Matrices" />
+                        <MenuItem mnemonicParsing="false" onAction="#importerOperations" text="Matrices et opérations" />
+                    </items>
+                  </Menu>
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Opérations">
+              <items>
+                  <Menu mnemonicParsing="false" text="Multiplication de matrices">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#produitMatriciel" text="Produit matriciel" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitVectoriel" text="Produit vectoriel" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitHadamard" text="Produit d'Hadamard" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitTensoriel" text="Produit tensoriel" />
+                     </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#addition" text="Addition" />
+                  <MenuItem mnemonicParsing="false" onAction="#soustraction" text="Soustraction" />
+                  <MenuItem mnemonicParsing="false" onAction="#multiplicationParScalaire" text="Multiplication par un scalaire" />
+                  <MenuItem mnemonicParsing="false" onAction="#puissance" text="Puissance" />
+                  <MenuItem mnemonicParsing="false" onAction="#transposition" text="Transposition" />
+                  <MenuItem mnemonicParsing="false" onAction="#inversion" text="Inversion" />
+                  <MenuItem mnemonicParsing="false" onAction="#calculDeterminant" text="Déterminant" />
+              </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
