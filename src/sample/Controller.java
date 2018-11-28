@@ -1,21 +1,44 @@
 package sample;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
 import view.MatriceView;
 
 public class Controller {
 
+
+
     public void multiplicationParScalaire(){
-        //Dialogue qui permet de changer le scalaire
+            TextInputDialog alerte = new TextInputDialog("Entrez ici");
+            alerte.setTitle("Multiplication par scalaire");
+            alerte.setHeaderText("Quel est le scalaire à multiplier");
+            alerte.setContentText(
+                    "Nombre: ");
+            String resultat = alerte.showAndWait().get();
+            System.out.println(resultat);
+
         int positionTabActive = trouverMatrice();
         Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
         Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
         ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
-                new MatriceView(matrice.multiParNombre(2)));
+                new MatriceView(matrice.multiParNombre(Integer.parseInt(resultat))));
     }
 
+
     public void genererMatrices(){
-        Main.generer();
+        TextInputDialog alerte = new TextInputDialog("Entrez ici");
+        alerte.setTitle("Nouvel onglet");
+        alerte.setHeaderText("Combien de matrices doit contenir le nouvel onglet? (1 à 4)");
+        alerte.setContentText(
+                "Nombre: ");
+        String resultat = alerte.showAndWait().get();
+        System.out.println(resultat);
+
+        Main.tabPane.getTabs().add(new BetterTab(Integer.valueOf(resultat)));
     }
+
 
     public void importerMatrice(){
     /*
@@ -24,6 +47,7 @@ public class Controller {
         betterTab.setResultat(matrice.additionSoustraction(betterTab.getMatrice2(), true));
         betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
         */
+
     }
 
     public void importerOperations(){
@@ -33,7 +57,9 @@ public class Controller {
         betterTab.setResultat(matrice.additionSoustraction(betterTab.getMatrice2(), false));
         betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
         */
+
     }
+
 
     public void addition(){
         int positionTabActive = trouverMatrice();
@@ -53,12 +79,19 @@ public class Controller {
     }
 
     public void puissance(){
-        //Dialogue qui permet de changer le scalaire
+        TextInputDialog alerte = new TextInputDialog("Entrez ici");
+        alerte.setTitle("Puissance de matrice");
+        alerte.setHeaderText("Quelle est la puissance de la matrice");
+        alerte.setContentText(
+                "Nombre: ");
+        String resultat = alerte.showAndWait().get();
+        System.out.println(resultat);
+
         int positionTabActive = trouverMatrice();
         Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
         Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
         ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
-                new MatriceView(matrice.puissance(2)));
+                new MatriceView(matrice.puissance(Integer.parseInt(resultat))));
     }
 
     public void transposition(){
@@ -109,13 +142,16 @@ public class Controller {
                 new MatriceView(matrice.produitTensoriel(matrice2)));
     }
 
+
     public void calculDeterminant(){
-    /*
+/*
         BetterTab betterTab = (BetterTab)Main.tabPane.getTabs().get(0);
         Matrice matrice = betterTab.getMatrice1();
         betterTab.setResultat(matrice.multiParNombre(2));
         betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
         */
+
+
     }
 
     public int trouverMatrice(){
