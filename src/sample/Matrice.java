@@ -1,9 +1,9 @@
 package sample;
 
 public class Matrice {
-    int width;
-    int height;
-    int[][] matriceTab;
+    private int width;
+    private int height;
+    private int[][] matriceTab;
 
     public Matrice(int width, int height) {
         this.width = width;
@@ -146,18 +146,66 @@ public class Matrice {
     public Matrice produitTensoriel(Matrice matrice){
         return null;
     }
-    /*
 
-    public int determinant(){ /////////////pas fini
-        int determinant = 0;
-        if (this.verifierCarre()){
-            for (int i=0;i<this.getWidth();i++){
-                for (int j=0;j<this.getHeight();j++){
-                    Matrice temp = new Matrice(i-1,j-1);
-                    determinant = this.getMatriceTab()[0][0];
-                    this.getMatriceTab()[i+1][j+1]=temp.getMatriceTab()[i][j];
-                }
+    public double determinant(){
+        double det = 1;
+        Matrice temp = new Matrice(this.getWidth(),this.height);
+        for (int i=0;i< this.getWidth();i++){
+            for (int j=0;j<this.getHeight();j++){
+                temp.getMatriceTab()[i][j] = this.getMatriceTab()[i][j];
             }
         }
-    }*/
+        if (verifierCarre()){
+            if (temp.getWidth()==1){
+                det = temp.getMatriceTab()[0][0];
+                return det;
+            }
+            else if (temp.getWidth()==2){
+                det = temp.getMatriceTab()[0][0] * temp.getMatriceTab()[1][1] - (temp.getMatriceTab()[1][0] * temp.getMatriceTab()[0][1]);
+                return det;
+            }
+            else {
+                double constante = 1;
+                int x=0;
+                for (int i=1; i<temp.getHeight(); i++) {
+                    for (int j = 0; j < i; j++) {
+                        try {
+                            x = (temp.getMatriceTab()[i][j] / temp.getMatriceTab()[i - 1][j]);
+                        }
+                        catch (Exception e){
+                            x=1;
+                        }
+                        System.out.println(x);
+                        for (int k=0; k<temp.getWidth(); k++){
+                            temp.getMatriceTab()[i][k]=temp.getMatriceTab()[i][k]-(x*temp.getMatriceTab()[i-1][k]);
+
+                        }
+                    }
+                }
+                for (int i=0; i<temp.getWidth();i++)
+                    constante=temp.getMatriceTab()[i][i]*constante;
+                for (int i=0; i<temp.getWidth();i++){
+                    System.out.println("---");
+                    for (int j=0; j<temp.getWidth();j++)
+                        System.out.println(temp.getMatriceTab()[i][j]);
+                }
+
+
+                return constante;
+                }
+            }
+            return 2;
+        }
+
+        /*
+    public Matrice triangleInferieur() {
+        double constante = 0;
+        for (int j=0;j<this.width;j++){
+            for (int i=0;i<this.height;i++){
+                this.getMatriceTab()[i][]
+            }
+        }
+
+    }
+    */
 }

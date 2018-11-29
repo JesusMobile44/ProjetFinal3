@@ -110,12 +110,10 @@ public class Controller {
     }
 
     public void calculDeterminant(){
-    /*
-        BetterTab betterTab = (BetterTab)Main.tabPane.getTabs().get(0);
-        Matrice matrice = betterTab.getMatrice1();
-        betterTab.setResultat(matrice.multiParNombre(2));
-        betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
-        */
+        int positionTabActive = trouverMatrice();
+        Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
+        Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
+        System.out.println(matrice.determinant());
     }
 
     public int trouverMatrice(){
