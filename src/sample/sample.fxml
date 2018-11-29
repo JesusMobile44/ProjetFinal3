@@ -11,7 +11,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Fichier">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#genererMatrices" text="Créer une matrice" />
+                <MenuItem mnemonicParsing="false" onAction="#genererMatrices" text="Créer un nouvel onglet" />
                   <Menu mnemonicParsing="false" text="Importer">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#importerMatrice" text="Matrices" />

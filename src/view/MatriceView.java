@@ -7,7 +7,7 @@ import sample.Matrice;
 
 public class MatriceView extends GridPane{
 
-    Matrice matriceVraie;
+    private Matrice matriceVraie;
 
     public MatriceView(Matrice matrice) {
         this.matriceVraie = matrice;
@@ -30,7 +30,7 @@ public class MatriceView extends GridPane{
                         temporaire[yFinal][xFinal] = Integer.valueOf(newValue);
                         matriceVraie.setMatriceTab(temporaire);
                     }catch(Exception e){
-                        System.out.println("caracteres");
+                        System.out.println(e);
                     }
                 });
 

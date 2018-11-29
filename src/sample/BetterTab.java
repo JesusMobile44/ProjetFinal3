@@ -12,14 +12,14 @@ import view.MatriceView;
 import java.util.ArrayList;
 
 public class BetterTab extends Tab {
-    int nombreDeMatrices;
+    private int nombreDeMatrices;
 
-    ArrayList<MatriceView> matrices = new ArrayList<>();
-    MatriceView resultatView;
+    private ArrayList<MatriceView> matrices = new ArrayList<>();
+    private MatriceView resultatView;
 
-    ArrayList<Label> labels = new ArrayList<>();
-    ArrayList<VBox> vBoxes = new ArrayList<>();
-    HBox hBoxRoot = new HBox();
+    private ArrayList<Label> labels = new ArrayList<>();
+    private ArrayList<VBox> vBoxes = new ArrayList<>();
+    private HBox hBoxRoot = new HBox();
 
     public BetterTab(int nombreDeMatrices) {
         this.nombreDeMatrices = nombreDeMatrices;
@@ -32,18 +32,6 @@ public class BetterTab extends Tab {
         super.setText("Nouvel onglet");
         this.setContent(hBoxRoot);
     }
-
-    /*
-    public BetterTab(MatriceView matriceView1, MatriceView matriceView2) {
-        this.resultatView = new MatriceView(new Matrice(3,3));
-
-        creerLabels();
-        arrangerDisposition();
-
-        super.setText("Nouvel onglet");
-        this.setContent(hBoxRoot);
-    }
-*/
 
     public void creerMatrices(int nombre){
         for (int i=0; i<nombre; i++)
@@ -125,7 +113,40 @@ public class BetterTab extends Tab {
 
     public void setResultatView(MatriceView resultatView) {
         this.resultatView = resultatView;
+        System.out.println("setResultatView    "+resultatView.getMatriceVraie().getMatriceTab()[0][0]);
         matrices.remove(this.nombreDeMatrices);
         matrices.add(this.nombreDeMatrices, this.resultatView);
+    }
+
+    public int getNombreDeMatrices() {
+        return nombreDeMatrices;
+    }
+
+    public void setNombreDeMatrices(int nombreDeMatrices) {
+        this.nombreDeMatrices = nombreDeMatrices;
+    }
+
+    public ArrayList<MatriceView> getMatrices() {
+        return matrices;
+    }
+
+    public void setMatrices(ArrayList<MatriceView> matrices) {
+        this.matrices = matrices;
+    }
+
+    public ArrayList<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(ArrayList<Label> labels) {
+        this.labels = labels;
+    }
+
+    public ArrayList<VBox> getvBoxes() {
+        return vBoxes;
+    }
+
+    public void setvBoxes(ArrayList<VBox> vBoxes) {
+        this.vBoxes = vBoxes;
     }
 }
