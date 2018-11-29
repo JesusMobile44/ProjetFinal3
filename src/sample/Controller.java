@@ -5,9 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import view.MatriceView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -19,7 +24,7 @@ public class Controller {
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
         if (listeMatricesAOperer.size()==1)
-        ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+        ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                 new MatriceView(choixMatrice().get(0).multiParNombre(dialogueMultiplicationParScalaire())));
 
         else
@@ -48,10 +53,10 @@ public class Controller {
             }
 
             System.out.println("resultat intermediaire    "+resultatIntermediaire.getMatriceTab()[0][0]);
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
 
-            System.out.println("final    "+((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).getResultatView().getMatriceVraie().getMatriceTab()[0][0]);
+            System.out.println("final    "+((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).getResultatView().getMatriceVraie().getMatriceTab()[0][0]);
         }
 
         else
@@ -68,7 +73,7 @@ public class Controller {
             for (int i=0; i<listeMatricesAOperer.size()-1;i++)
                 resultatIntermediaire=resultatIntermediaire.additionSoustraction(listeMatricesAOperer.get(i+1), false);
 
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
         }
 
@@ -81,7 +86,7 @@ public class Controller {
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
         if (listeMatricesAOperer.size()==1)
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(listeMatricesAOperer.get(0).puissance(dialoguePuissance())));
 
         else
@@ -102,7 +107,7 @@ public class Controller {
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
         if (listeMatricesAOperer.size()==1)
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(listeMatricesAOperer.get(0).transposition()));
 
         else
@@ -114,7 +119,7 @@ public class Controller {
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
         if (listeMatricesAOperer.size()==1)
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(listeMatricesAOperer.get(0).inversion()));
 
         else
@@ -130,7 +135,7 @@ public class Controller {
             for (int i=0; i<listeMatricesAOperer.size()-1;i++)
                 resultatIntermediaire=resultatIntermediaire.produitMatriciel(listeMatricesAOperer.get(i+1));
 
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
         }
 
@@ -147,7 +152,7 @@ public class Controller {
             for (int i=0; i<listeMatricesAOperer.size()-1;i++)
                 resultatIntermediaire=resultatIntermediaire.produitVectoriel(listeMatricesAOperer.get(i+1));
 
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
         }
 
@@ -164,7 +169,7 @@ public class Controller {
             for (int i=0; i<listeMatricesAOperer.size()-1;i++)
                 resultatIntermediaire=resultatIntermediaire.produitHadamard(listeMatricesAOperer.get(i+1));
 
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
         }
 
@@ -181,7 +186,7 @@ public class Controller {
             for (int i=0; i<listeMatricesAOperer.size()-1;i++)
                 resultatIntermediaire=resultatIntermediaire.produitTensoriel(listeMatricesAOperer.get(i+1));
 
-            ((BetterTab) Main.tabPane.getTabs().get(positionTabActive)).setResultatView(
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
                     new MatriceView(resultatIntermediaire));
         }
 
@@ -209,17 +214,35 @@ public class Controller {
         String resultat = alerte.showAndWait().get();
         System.out.println(resultat);
 
-        Main.tabPane.getTabs().add(new BetterTab(Integer.valueOf(resultat)));
+        Main.getTabPane().getTabs().add(new BetterTab(Integer.valueOf(resultat)));
     }
 
 
     public void importerMatrice(){
-    /*
-        BetterTab betterTab = (BetterTab)Main.tabPane.getTabs().get(0);
-        Matrice matrice = betterTab.getMatrice1();
-        betterTab.setResultat(matrice.additionSoustraction(betterTab.getMatrice2(), true));
-        betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
-        */
+        boolean ok = true;
+        try {
+            FileChooser fc = new FileChooser();
+            fc.setTitle("Veuillez sélectionner un fichier");
+            fc.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
+            );
+            File file = fc.showOpenDialog(Main.getStage());
+
+            //lire la matrice
+            BufferedReader entree = new BufferedReader(
+                    new FileReader(file));
+            List<String> allLines = new ArrayList<>();
+            for (int i=0;i<file.length();i++){
+                String s = entree.readLine();
+                if (s==null){
+                    break;
+                }
+                allLines.add(s);
+
+            }
+        }catch (Exception e){
+            System.out.println("Erreur, fichier non compatible");
+        }
 
     }
 
@@ -237,18 +260,21 @@ public class Controller {
     //Autres fonctions utiles
     public ArrayList<Matrice> choixMatrice(){
         int positionTabActive = trouverMatrice();
-        BetterTab betterTab =((BetterTab)Main.tabPane.getTabs().get(positionTabActive));
+        BetterTab betterTab =((BetterTab)Main.getTabPane().getTabs().get(positionTabActive));
         int nombreMatrice = betterTab.getNombreDeMatrices();
-        HBox[] hBoxes = new HBox[nombreMatrice];
+        HBox[] hBoxes = new HBox[nombreMatrice+1];
         VBox root = new VBox();
         root.getChildren().add(new Label("Veuillez cocher la ou les matrices sur laquelle ou lesquelles effectuer l'opération"));
         root.setSpacing(30);
-        CheckBox[] checkBoxes = new CheckBox[nombreMatrice];
+        CheckBox[] checkBoxes = new CheckBox[nombreMatrice+1];
 
-        for (int i=0; i<nombreMatrice; i++){
+        for (int i=0; i<nombreMatrice+1; i++){
             checkBoxes[i]= new CheckBox();
             hBoxes[i] = new HBox();
-            hBoxes[i].getChildren().add(betterTab.getLabels().get(i));
+            if (i!=nombreMatrice)
+                hBoxes[i].getChildren().add(new Label("Matrice "+ (char)(i+65)));
+            else
+                hBoxes[i].getChildren().add(new Label("Résultat"));
             hBoxes[i].getChildren().get(0).setScaleX(1);
             hBoxes[i].getChildren().get(0).setScaleY(1);
             hBoxes[i].getChildren().add(checkBoxes[i]);
@@ -261,7 +287,7 @@ public class Controller {
         dialog.getDialogPane().setContent(root);
 
         dialog.getDialogPane().getButtonTypes().add(
-                new ButtonType("Générer", ButtonBar.ButtonData.OK_DONE)
+                new ButtonType("Opérer", ButtonBar.ButtonData.OK_DONE)
         );
 
         dialog.setHeaderText("Nouvelle opération");
@@ -276,9 +302,7 @@ public class Controller {
                         betterTab.getMatrices().get(i).getMatriceVraie().getHeight(),
                         betterTab.getMatrices().get(i).getMatriceVraie().getWidth()
                 ));
-            System.out.println("choisir matrice    "+retour.get(i).getMatriceTab()[0][0]);
         }
-
         return retour;
     }
 
@@ -292,8 +316,8 @@ public class Controller {
     }
 
     public int trouverMatrice(){
-        for (int i = 0; i<Main.tabPane.getTabs().size(); i++){
-            if (Main.tabPane.getTabs().get(i).isSelected())
+        for (int i = 0; i<Main.getTabPane().getTabs().size(); i++){
+            if (Main.getTabPane().getTabs().get(i).isSelected())
                 return i;
         }
         return 0;

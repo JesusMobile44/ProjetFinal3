@@ -116,6 +116,7 @@ public class BetterTab extends Tab {
         System.out.println("setResultatView    "+resultatView.getMatriceVraie().getMatriceTab()[0][0]);
         matrices.remove(this.nombreDeMatrices);
         matrices.add(this.nombreDeMatrices, this.resultatView);
+        vBoxes.get(nombreDeMatrices).getChildren().set(1, resultatView);
     }
 
     public int getNombreDeMatrices() {

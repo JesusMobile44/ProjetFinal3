@@ -10,11 +10,30 @@ import view.MatriceView;
 
 public class Main extends Application {
 
-    public static TabPane tabPane = new TabPane();
+    private static TabPane tabPane = new TabPane();
+
+    public static TabPane getTabPane() {
+        return tabPane;
+    }
+
+    public static void setTabPane(TabPane tabPane) {
+        Main.tabPane = tabPane;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        Main.stage = stage;
+    }
+
+    private static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         BorderPane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        stage = primaryStage;
 
         root.setCenter(tabPane);
 
