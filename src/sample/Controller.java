@@ -202,6 +202,10 @@ public class Controller {
         betterTab.setResultat(matrice.multiParNombre(2));
         betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
         */
+        int positionTabActive = trouverMatrice();
+        Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
+        Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
+        System.out.println(matrice.determinant());
     }
 
     //Fichiers
@@ -219,32 +223,58 @@ public class Controller {
 
 
     public void importerMatrice(){
-        boolean ok = true;
+        List<String> allLines = new ArrayList<>();
         try {
             FileChooser fc = new FileChooser();
             fc.setTitle("Veuillez sélectionner un fichier");
             fc.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
+                    //new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
             );
             File file = fc.showOpenDialog(Main.getStage());
 
             //lire la matrice
             BufferedReader entree = new BufferedReader(
                     new FileReader(file));
-            List<String> allLines = new ArrayList<>();
+
             for (int i=0;i<file.length();i++){
                 String s = entree.readLine();
                 if (s==null){
                     break;
                 }
                 allLines.add(s);
-
             }
         }catch (Exception e){
             System.out.println("Erreur, fichier non compatible");
         }
 
+            ArrayList<Matrice> matrices = new ArrayList<>();
+
+            for (int i=0; i<allLines.size(); i++){
+                String chaine = allLines.get(i);
+                String[] lines = chaine.split(",");
+                int[] nombres = new int[lines.length];
+
+                for (int j=0; j<lines.length; j++)
+                    nombres[j] = (Integer.parseInt(lines[j].trim()));
+                for (int j=1; j<allLines.size(); j++){
+                    int hauteur = nombres[0];
+                    int largeur = nombres[1];
+                    matrices.add(new Matrice(largeur, hauteur));
+                }
+                int tour =2;
+                for (int j=0; j<matrices.get(i).getHeight(); j++){
+                    for (int k=0; k<matrices.get(i).getWidth(); k++){
+                        matrices.get(i).getMatriceTab()[j][k]=nombres[tour];
+                        tour++;
+                    }
+                }
+            }
+
+            Main.getTabPane().getTabs().add(new BetterTab(matrices.size(), matrices));
+
+
     }
+
 
     public void importerOperations(){
     /*
