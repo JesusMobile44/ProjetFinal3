@@ -33,6 +33,22 @@ public class BetterTab extends Tab {
         this.setContent(hBoxRoot);
     }
 
+    public BetterTab(int nombreDeMatrices, ArrayList<Matrice> liste) {
+        this.nombreDeMatrices = nombreDeMatrices;
+        this.resultatView = new MatriceView(new Matrice(3,3));
+
+        for (int i=0; i<liste.size(); i++)
+            matrices.add(new MatriceView(liste.get(i)));
+        matrices.add(resultatView);
+
+        creerLabels(nombreDeMatrices);
+        arrangerDisposition(nombreDeMatrices);
+
+        super.setText("Nouvel onglet");
+        this.setContent(hBoxRoot);
+    }
+
+
     public void creerMatrices(int nombre){
         for (int i=0; i<nombre; i++)
             matrices.add(genererMatrice());
