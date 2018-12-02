@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -196,16 +195,15 @@ public class Controller {
 
 
     public void calculDeterminant(){
-/*
-        BetterTab betterTab = (BetterTab)Main.tabPane.getTabs().get(0);
-        Matrice matrice = betterTab.getMatrice1();
-        betterTab.setResultat(matrice.multiParNombre(2));
-        betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
-        */
         int positionTabActive = trouverMatrice();
-        Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
-        Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
-        System.out.println(matrice.determinant());
+        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
+
+        if (listeMatricesAOperer.size()==1) {
+            System.out.println(listeMatricesAOperer.get(0).nouveauDeterminant());
+        }
+
+        else
+            erreurNombreMatrice("Veuillez sélectionner une seule matrice lors du calcul du déterminant");
     }
 
     //Fichiers
@@ -353,7 +351,7 @@ public class Controller {
         return 0;
     }
 
-    public Matrice convertirMatrice(int[][] tableau, int hauteur, int largeur){
+    public Matrice convertirMatrice(double[][] tableau, int hauteur, int largeur){
         Matrice matrice = new Matrice(hauteur, largeur);
         for (int i=0; i<hauteur; i++){
             for (int j=0; j<largeur; j++)
