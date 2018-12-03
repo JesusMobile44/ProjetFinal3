@@ -202,10 +202,6 @@ public class Controller {
         betterTab.setResultat(matrice.multiParNombre(2));
         betterTab.setResultatView(new MatriceView(betterTab.getResultat()));
         */
-        int positionTabActive = trouverMatrice();
-        Matrice matrice = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView1().getMatriceVraie();
-        Matrice matrice2 = ((BetterTab)Main.tabPane.getTabs().get(positionTabActive)).getMatriceView2().getMatriceVraie();
-        System.out.println(matrice.determinant());
     }
 
     //Fichiers
