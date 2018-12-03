@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Pos;
+import javafx.print.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -286,6 +287,21 @@ public class Controller {
 
 
     //Autres fonctions utiles
+    public void imprimerResultat(){
+        int positionTabActive = trouverMatrice();
+        BetterTab betterTab =((BetterTab)Main.getTabPane().getTabs().get(positionTabActive));
+        MatriceView matriceView = betterTab.getResultatView();
+        Printer printer = Printer.getDefaultPrinter();
+        PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
+        PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+        printerJob.getJobSettings().setPageLayout(pageLayout);
+        if (printerJob!=null){
+            boolean ok = printerJob.printPage(matriceView);
+            if (ok) {
+                printerJob.endJob();
+            }
+        }
+    }
     public ArrayList<Matrice> choixMatrice(){
         int positionTabActive = trouverMatrice();
         BetterTab betterTab =((BetterTab)Main.getTabPane().getTabs().get(positionTabActive));
