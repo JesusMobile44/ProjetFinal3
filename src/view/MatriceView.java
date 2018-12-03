@@ -25,7 +25,7 @@ public class MatriceView extends GridPane{
                 int yFinal=y;
                 int xFinal=x;
                 tf.textProperty().addListener((observable, oldValue, newValue) -> {
-                    int[][] temporaire = matriceVraie.getMatriceTab();
+                    double[][] temporaire = matriceVraie.getMatriceTab();
                     try {
                         temporaire[yFinal][xFinal] = Integer.valueOf(newValue);
                         matriceVraie.setMatriceTab(temporaire);
