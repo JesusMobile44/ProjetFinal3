@@ -302,6 +302,8 @@ public class Controller {
             }
         }
     }
+
+
     public ArrayList<Matrice> choixMatrice(){
         int positionTabActive = trouverMatrice();
         BetterTab betterTab =((BetterTab)Main.getTabPane().getTabs().get(positionTabActive));
