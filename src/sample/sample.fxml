@@ -11,6 +11,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Fichier">
               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#imprimerResultat" text="Imprimer le résultat" />
                 <MenuItem mnemonicParsing="false" onAction="#genererMatrices" text="Créer un nouvel onglet" />
                   <Menu mnemonicParsing="false" text="Importer">
                     <items>
@@ -37,6 +38,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#transposition" text="Transposition" />
                   <MenuItem mnemonicParsing="false" onAction="#inversion" text="Inversion" />
                   <MenuItem mnemonicParsing="false" onAction="#calculDeterminant" text="Déterminant" />
+                  <MenuItem mnemonicParsing="false" onAction="#operationsMixtes" text="Opérations mixtes" />
               </items>
             </Menu>
          </menus>

@@ -66,10 +66,8 @@ public class Matrice {
                     }
                 }
             }
-            System.out.print(3);
             return resultat;
         }
-        System.out.print(2);
         return null;
     }
 
