@@ -1,20 +1,60 @@
 package sample;
 
+import java.util.ArrayList;
+
 public class Matrice {
     private int width;
     private int height;
     private double[][] matriceTab;
+    private ArrayList<String> description;
+    private String nom;
 
     public Matrice(int width, int height) {
         this.width = width;
         this.height = height;
         this.matriceTab = new double[height][width];
+        this.description = new ArrayList<>();
+        this.nom = nom;
     }
+
+    public Matrice(int width, int height,String nom) {
+        this.width = width;
+        this.height = height;
+        this.matriceTab = new double[height][width];
+        this.description = new ArrayList<>();
+        this.nom = nom;
+    }
+
 
     public Matrice(int width, int height, double[][] matriceTab) {
         this.width = width;
         this.height = height;
         this.matriceTab = matriceTab;
+        this.description = new ArrayList<>();
+        this.nom = nom;
+    }
+    public Matrice(int width, int height, double[][] matriceTab,String nom) {
+        this.width = width;
+        this.height = height;
+        this.matriceTab = matriceTab;
+        this.description = new ArrayList<>();
+        this.nom = nom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public ArrayList<String> getDescription() {
+        return description;
+    }
+
+    public void setDescription(ArrayList<String> description) {
+        this.description = description;
     }
 
     public int getWidth() {
@@ -54,7 +94,7 @@ public class Matrice {
         return ok;
     }
     public Matrice additionSoustraction(Matrice matrice1, boolean add){
-        Matrice resultat = new Matrice(this.getWidth(),this.getHeight());
+        Matrice resultat = new Matrice(this.getWidth(),this.getHeight(),"resultat");
         if (verifierAddition(matrice1)){
             for (int j=0;j<resultat.getWidth();j++){
                 for (int i=0;i<resultat.getHeight();i++){
@@ -72,7 +112,7 @@ public class Matrice {
     }
 
     public Matrice inversion() {
-        Matrice temp = new Matrice(this.getWidth(), this.getHeight(), this.getMatriceTab());
+        Matrice temp = new Matrice(this.getWidth(), this.getHeight(), this.getMatriceTab(),"resultat");
         double detDepart = temp.nouveauDeterminant();
 
         if (detDepart != 0) {
@@ -96,7 +136,7 @@ public class Matrice {
 
             for (int i = 0; i < temp.getWidth(); i++) {
                 for (int j = 1; j < temp.getWidth(); j++) {
-                    Matrice calculs = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i][j]);
+                    Matrice calculs = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i][j],"resultat");
                     if ((i + j) % 2 == 1)
                         temp.getMatriceTab()[i][j] = (calculs.nouveauDeterminant() * -1);
                     else
@@ -111,20 +151,22 @@ public class Matrice {
     }
 
     public Matrice multiParNombre(double multi){
-        Matrice resultat = new Matrice(this.getWidth(),this.getHeight());
+        Matrice resultat = new Matrice(this.getWidth(),this.getHeight(),"resultat");
         for (int j=0;j<this.getWidth();j++){
             for (int i=0;i<this.getHeight();i++){
                 resultat.getMatriceTab()[i][j]= (this.getMatriceTab()[i][j])*multi;
+                resultat.getDescription().add(this.getNom()+" Multiplication par un scalaire : "+ this.getMatriceTab()[i][j]+" * "+ multi);
             }
         }
         return resultat;
     }
     public Matrice transposition(){
-        Matrice resultat = new Matrice(this.getWidth(),this.getHeight());
+        Matrice resultat = new Matrice(this.getWidth(),this.getHeight(),"resultat");
         if (this.verifierCarre()){
             for (int j=0;j<this.getWidth();j++){
                 for (int i=0;i<this.getHeight();i++){
                     resultat.getMatriceTab()[i][j]= (this.getMatriceTab()[j][i]);
+                    resultat.getDescription().add(this.getNom()+" Transposition : "+(j+1)+","+(i+1)+" ==> "+(i+1)+","+(j+1));
                 }
             }
             return resultat;
@@ -132,11 +174,14 @@ public class Matrice {
         return null;
     }
     public Matrice produitMatriciel(Matrice matrice1){
-        Matrice resultat = new Matrice(matrice1.getWidth(),this.getHeight());
+        Matrice resultat = new Matrice(matrice1.getWidth(),this.getHeight(),"resultat");
         if (this.verifierMultiplication(matrice1)){
-            for (int j=0;j<this.getWidth();j++){
-                for (int i=0;i<this.getHeight();i++){
-                    resultat.getMatriceTab()[i][j]= this.getMatriceTab()[i][j] * matrice1.getMatriceTab()[j][i];
+            for (int i=0;i<this.getHeight();i++){
+                for (int j=0;j<this.getWidth();j++){
+                    for (int k=0;k<this.getWidth();k++){
+                        resultat.getMatriceTab()[i][j] = resultat.getMatriceTab()[i][j]+(this.getMatriceTab()[i][k] * matrice1.getMatriceTab()[k][i]);
+                        resultat.getDescription().add(this.getNom()+"*"+matrice1.getNom()+" Produit Matriciel : "+this.getMatriceTab()[i][k] +"*"+ matrice1.getMatriceTab()[k][i]+" = "+resultat.getMatriceTab()[i][j]);
+                    }
                 }
             }
             return resultat;
@@ -154,7 +199,7 @@ public class Matrice {
         return null;
     }
     public Matrice produitVectoriel(Matrice matrice1){
-        Matrice resultat = new Matrice(3,1);
+        Matrice resultat = new Matrice(3,1,"resultat");
         if (this.getWidth()==3 && matrice1.getWidth()==3){
             resultat.getMatriceTab()[0][0] =
                     (this.getMatriceTab()[1][0]*matrice1.getMatriceTab()[2][0])
@@ -170,7 +215,7 @@ public class Matrice {
         return null;
     }
     public Matrice produitHadamard(Matrice matrice1){
-        Matrice resultat = new Matrice(matrice1.getWidth(),this.getHeight());
+        Matrice resultat = new Matrice(matrice1.getWidth(),this.getHeight(),"resultat");
         if (this.verifierAddition(matrice1)){
             for (int j=0;j<this.getWidth();j++){
                 for (int i=0;i<this.getHeight();i++){
@@ -183,7 +228,7 @@ public class Matrice {
     }
 
     public Matrice produitTensoriel(Matrice matrice){
-        Matrice resultat = new Matrice(this.getWidth()*2,this.getHeight()*2);
+        Matrice resultat = new Matrice(this.getWidth()*2,this.getHeight()*2,"resultat");
         for (int i1=0;i1<this.getHeight();i1++){
             for (int j1=0;j1<this.getWidth();i1++){
                 for (int i2=0;i2<matrice.getHeight();i2++){
@@ -254,7 +299,7 @@ public class Matrice {
 
 
         public double nouveauDeterminant() {
-            Matrice temp = new Matrice(this.getWidth(), this.height, this.matriceTab);
+            Matrice temp = new Matrice(this.getWidth(), this.height, this.matriceTab,"resultat");
             double det = 0;
             double[][][] tabMatrices = new double[temp.getWidth()][temp.getWidth() - 1][temp.getWidth() - 1];
             if (verifierCarre()) {
@@ -280,7 +325,7 @@ public class Matrice {
                     }
 
                     for (int i = 0; i < temp.getWidth(); i++) {
-                        Matrice intermediaire = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i]);
+                        Matrice intermediaire = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i],"intermediaire");
                         if (i % 2 == 1)
                             det += temp.getMatriceTab()[0][i] * intermediaire.nouveauDeterminant() * -1;
                         else

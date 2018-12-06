@@ -5,6 +5,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import sample.Matrice;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class MatriceView extends GridPane{
 
     private Matrice matriceVraie;
@@ -27,7 +30,7 @@ public class MatriceView extends GridPane{
                 tf.textProperty().addListener((observable, oldValue, newValue) -> {
                     double[][] temporaire = matriceVraie.getMatriceTab();
                     try {
-                        temporaire[yFinal][xFinal] = Integer.valueOf(newValue);
+                        temporaire[yFinal][xFinal] =Double.valueOf(newValue);
                         matriceVraie.setMatriceTab(temporaire);
                     }catch(Exception e){
                         System.out.println(e);
