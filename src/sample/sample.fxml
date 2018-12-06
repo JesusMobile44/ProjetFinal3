@@ -15,7 +15,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#genererMatrices" text="Créer un nouvel onglet" />
                   <Menu mnemonicParsing="false" text="Importer">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#importerMatrice" text="Matrices" />
+                      <MenuItem mnemonicParsing="false" onAction="#creerTabImportation" text="Matrices" />
                         <MenuItem mnemonicParsing="false" onAction="#importerOperations" text="Matrices et opérations" />
                     </items>
                   </Menu>

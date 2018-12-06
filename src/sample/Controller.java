@@ -86,7 +86,6 @@ public class Controller {
         AtomicInteger positionPlus = new AtomicInteger(3);
 
 
-
         ArrayList<ChoiceBox> choiceBoxesMatrices = new ArrayList<>();
         ArrayList<ChoiceBox> choiceBoxesOperations = new ArrayList<>();
 
@@ -97,7 +96,7 @@ public class Controller {
                 vBoxes[i].getChildren().add(new Label(stringMatrices));
                 ArrayList<String> liste = new ArrayList<>();
                 for (int j=0; j<optionsPossibles.getChildren().size(); j++)
-                    liste.add(((Label)optionsPossibles.getChildren().get(i)).getText());
+                    liste.add(((Label)optionsPossibles.getChildren().get(j)).getText());
 
                 ObservableList<String> observableList = FXCollections.observableList(liste);
                 ChoiceBox<String> choix = new ChoiceBox<>(observableList);
@@ -130,14 +129,15 @@ public class Controller {
         root.setSpacing(50);
 
         boutonPlus.setOnAction(event -> {
-            vBoxes[positionPlus.get()]=new VBox();
+            vBoxes[positionPlus.get()].getChildren().remove(0);
             for (int i=positionPlus.get(); i<=positionPlus.get()+2; i++){
 
                 if (i%2==0){
+                    vBoxes[i]=new VBox();
                     vBoxes[i].getChildren().add(new Label(stringMatrices));
                     ArrayList<String> liste = new ArrayList<>();
                     for (int j=0; j<optionsPossibles.getChildren().size(); j++)
-                        liste.add(((Label)optionsPossibles.getChildren().get(i)).getText());
+                        liste.add(((Label)optionsPossibles.getChildren().get(j)).getText());
 
                     ObservableList<String> observableList = FXCollections.observableList(liste);
                     ChoiceBox<String> choix = new ChoiceBox<>(observableList);
@@ -146,6 +146,7 @@ public class Controller {
                     choiceBoxesMatrices.add(choix);
                 }
                 else if (i==positionPlus.get()+2){
+                    vBoxes[i]=new VBox();
                     vBoxes[i].getChildren().add(boutonPlus);
                 }
 
@@ -160,6 +161,8 @@ public class Controller {
                 }
                 vBoxes[i].setSpacing(10);
                 vBoxes[i].setAlignment(Pos.CENTER);
+                if (i==positionPlus.get())
+                    ligneOperations.getChildren().remove(i);
                 ligneOperations.getChildren().add(vBoxes[i]);
             }
             positionPlus.set(positionPlus.get()+2);
@@ -411,7 +414,7 @@ public class Controller {
     }
 
 
-    public void importerMatrice(){
+    public static ArrayList<Matrice> importerMatrice(){
         List<String> allLines = new ArrayList<>();
         try {
             FileChooser fc = new FileChooser();
@@ -458,7 +461,12 @@ public class Controller {
                 }
             }
 
-            Main.getTabPane().getTabs().add(new BetterTab(matrices.size(), matrices));
+            return matrices;
+    }
+
+    public void creerTabImportation(){
+        ArrayList<Matrice> matrices = importerMatrice();
+        Main.getTabPane().getTabs().add(new BetterTab(matrices.size(), matrices));
     }
 
 
@@ -557,7 +565,7 @@ public class Controller {
     }
 
     public Matrice convertirMatrice(double[][] tableau, int hauteur, int largeur){
-        Matrice matrice = new Matrice(hauteur, largeur);
+        Matrice matrice = new Matrice(largeur, hauteur);
         for (int i=0; i<hauteur; i++){
             for (int j=0; j<largeur; j++)
                 matrice.getMatriceTab()[i][j] = tableau[i][j];
