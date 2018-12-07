@@ -414,16 +414,24 @@ public class Controller {
     }
 
 
-    public static ArrayList<Matrice> importerMatrice(){
+    public static ArrayList<Matrice> importerMatrice(boolean test){
         List<String> allLines = new ArrayList<>();
-        try {
-            FileChooser fc = new FileChooser();
-            fc.setTitle("Veuillez sélectionner un fichier");
-            fc.getExtensionFilters().addAll(
-                    //new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
-            );
-            File file = fc.showOpenDialog(Main.getStage());
+        File file = new File("MatricesPourTestsUnitaires.csv");
+        if (!test) {
+            try {
+                FileChooser fc = new FileChooser();
+                fc.setTitle("Veuillez sélectionner un fichier");
+                fc.getExtensionFilters().addAll(
+                        //new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
+                );
+                file = fc.showOpenDialog(Main.getStage());
 
+
+            } catch (Exception e) {
+                System.out.println("Erreur, fichier non compatible");
+            }
+        }
+        try{
             //lire la matrice
             BufferedReader entree = new BufferedReader(
                     new FileReader(file));
@@ -436,8 +444,9 @@ public class Controller {
                 allLines.add(s);
             }
         }catch (Exception e){
-            System.out.println("Erreur, fichier non compatible");
+            System.out.println("Impossible de lire le fichier : "+e);
         }
+
 
             ArrayList<Matrice> matrices = new ArrayList<>();
 
@@ -465,7 +474,7 @@ public class Controller {
     }
 
     public void creerTabImportation(){
-        ArrayList<Matrice> matrices = importerMatrice();
+        ArrayList<Matrice> matrices = importerMatrice(true);
         Main.getTabPane().getTabs().add(new BetterTab(matrices.size(), matrices));
     }
 
