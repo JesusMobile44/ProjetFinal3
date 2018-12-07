@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.Border;
@@ -117,6 +118,7 @@ public class BetterTab extends Tab {
         }
 
         hBoxRoot.getChildren().addAll(vBoxes);
+        hBoxRoot.getChildren().add(nombre, new Separator(Orientation.VERTICAL));
         hBoxRoot.setSpacing(100);
         hBoxRoot.setAlignment(Pos.CENTER);
         hBoxRoot.setPadding(new Insets(50));
