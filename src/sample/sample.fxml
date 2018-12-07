@@ -23,22 +23,12 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Opérations">
               <items>
-                  <Menu mnemonicParsing="false" text="Multiplication de matrices">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#produitMatriciel" text="Produit matriciel" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitVectoriel" text="Produit vectoriel" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitHadamard" text="Produit d'Hadamard" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitTensoriel" text="Produit tensoriel" />
-                     </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#addition" text="Addition" />
-                  <MenuItem mnemonicParsing="false" onAction="#soustraction" text="Soustraction" />
                   <MenuItem mnemonicParsing="false" onAction="#multiplicationParScalaire" text="Multiplication par un scalaire" />
                   <MenuItem mnemonicParsing="false" onAction="#puissance" text="Puissance" />
                   <MenuItem mnemonicParsing="false" onAction="#transposition" text="Transposition" />
                   <MenuItem mnemonicParsing="false" onAction="#inversion" text="Inversion" />
                   <MenuItem mnemonicParsing="false" onAction="#calculDeterminant" text="Déterminant" />
-                  <MenuItem mnemonicParsing="false" onAction="#operationsMixtes" text="Opérations mixtes" />
+                  <MenuItem mnemonicParsing="false" onAction="#operationsMixtes" text="Autres opérations" />
               </items>
             </Menu>
          </menus>

@@ -20,6 +20,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
 
+    /*
+                  <Menu mnemonicParsing="false" text="Multiplication de matrices">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#produitMatriciel" text="Produit matriciel" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitVectoriel" text="Produit vectoriel" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitHadamard" text="Produit d'Hadamard" />
+                        <MenuItem mnemonicParsing="false" onAction="#produitTensoriel" text="Produit tensoriel" />
+                     </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#addition" text="Addition" />
+                  <MenuItem mnemonicParsing="false" onAction="#soustraction" text="Soustraction" />
+                  */
+
     //Opérations
     public void operationsMixtes(){
         int positionTabActive = trouverMatrice();
@@ -234,6 +247,7 @@ public class Controller {
         return Integer.parseInt(alerte.showAndWait().get());
     }
 
+    /*
     public void addition(){
         int positionTabActive = trouverMatrice();
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
@@ -273,6 +287,8 @@ public class Controller {
         else
             erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors de la soustraction de matrices");
     }
+
+*/
 
     public void puissance(){
         int positionTabActive = trouverMatrice();
@@ -319,6 +335,7 @@ public class Controller {
             erreurNombreMatrice("Veuillez ne sélectionner qu'une seule matrice lors de l'inversion d'une matrice.");
     }
 
+    /*
     public void produitMatriciel(){
         int positionTabActive = trouverMatrice();
         ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
@@ -387,6 +404,7 @@ public class Controller {
             erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors du produit tensoriel");
     }
 
+*/
 
     public void calculDeterminant(){
         int positionTabActive = trouverMatrice();
@@ -422,7 +440,7 @@ public class Controller {
                 FileChooser fc = new FileChooser();
                 fc.setTitle("Veuillez sélectionner un fichier");
                 fc.getExtensionFilters().addAll(
-                        //new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
+                        new FileChooser.ExtensionFilter("Fichier CSV","*.csv")
                 );
                 file = fc.showOpenDialog(Main.getStage());
 
@@ -474,7 +492,7 @@ public class Controller {
     }
 
     public void creerTabImportation(){
-        ArrayList<Matrice> matrices = importerMatrice(true);
+        ArrayList<Matrice> matrices = importerMatrice(false);
         Main.getTabPane().getTabs().add(new BetterTab(matrices.size(), matrices));
     }
 

@@ -25,14 +25,6 @@ public class Matrice {
         this.nom = nom;
     }
 
-
-    public Matrice(int width, int height, double[][] matriceTab) {
-        this.width = width;
-        this.height = height;
-        this.matriceTab = matriceTab;
-        this.description = new ArrayList<>();
-        this.nom = nom;
-    }
     public Matrice(int width, int height, double[][] matriceTab,String nom) {
         this.width = width;
         this.height = height;
@@ -122,29 +114,32 @@ public class Matrice {
 
             for (int l = 0; l < temp.getHeight(); l++) {
                 for (int i = 0; i < temp.getWidth(); i++) {
-                    for (int j = 1; j < temp.getWidth(); j++) {
+                    for (int j = 0; j < temp.getWidth() - 1; j++) {
                         for (int k = 0; k < temp.getWidth() - 1; k++) {
-                            if (i <= k) {
-                                tabMatrices[l][i][j - 1][k] = temp.getMatriceTab()[j][k + 1];
-                            } else {
-                                tabMatrices[l][i][j - 1][k] = temp.getMatriceTab()[j][k];
-                            }
+                            if (i <= k && l<=j)
+                                tabMatrices[i][l][k][j] = temp.getMatriceTab()[j + 1][k + 1];
+                            else if (i <= k)
+                                tabMatrices[i][l][k][j] = temp.getMatriceTab()[j][k + 1];
+                            else if (l<=j)
+                                tabMatrices[i][l][k][j] = temp.getMatriceTab()[j + 1][k];
+                            else
+                                tabMatrices[i][l][k][j] = temp.getMatriceTab()[j][k];
                         }
                     }
                 }
             }
 
             for (int i = 0; i < temp.getWidth(); i++) {
-                for (int j = 1; j < temp.getWidth(); j++) {
-                    Matrice calculs = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i][j],"resultat");
+                for (int j = 0; j < temp.getWidth(); j++) {
+                    Matrice calculs = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[j][i],"resultat");
                     if ((i + j) % 2 == 1)
-                        temp.getMatriceTab()[i][j] = (calculs.nouveauDeterminant() * -1);
+                        temp.getMatriceTab()[j][i] = (calculs.nouveauDeterminant() * -1);
                     else
-                        temp.getMatriceTab()[i][j] = (calculs.nouveauDeterminant());
+                        temp.getMatriceTab()[j][i] = (calculs.nouveauDeterminant());
                 }
             }
 
-            return temp.multiParNombre(1 / detDepart);
+            return temp.multiParNombre(1 / detDepart).transposition();
         }
         System.out.println("Inversion : det = 0");
         return null;
@@ -176,10 +171,10 @@ public class Matrice {
     public Matrice produitMatriciel(Matrice matrice1){
         Matrice resultat = new Matrice(matrice1.getWidth(),this.getHeight(),"resultat");
         if (this.verifierMultiplication(matrice1)){
-            for (int i=0;i<this.getHeight();i++){
-                for (int j=0;j<this.getWidth();j++){
+            for (int i=0;i<resultat.getHeight();i++){
+                for (int j=0;j<resultat.getWidth();j++){
                     for (int k=0;k<this.getWidth();k++){
-                        resultat.getMatriceTab()[i][j] = resultat.getMatriceTab()[i][j]+(this.getMatriceTab()[i][k] * matrice1.getMatriceTab()[k][i]);
+                        resultat.getMatriceTab()[i][j] = resultat.getMatriceTab()[i][j]+(this.getMatriceTab()[i][k] * matrice1.getMatriceTab()[k][j]);
                         resultat.getDescription().add(this.getNom()+"*"+matrice1.getNom()+" Produit Matriciel : "+this.getMatriceTab()[i][k] +"*"+ matrice1.getMatriceTab()[k][i]+" = "+resultat.getMatriceTab()[i][j]);
                     }
                 }
@@ -191,8 +186,8 @@ public class Matrice {
     public Matrice puissance(int puissance){
         Matrice resultat = this;
         if (this.verifierCarre()){
-            for (int i=0;i<puissance;i++){
-                resultat.produitMatriciel(this);
+            for (int i=0;i<puissance-1;i++){
+                resultat = resultat.produitMatriciel(this);
             }
             return resultat;
         }
@@ -202,14 +197,14 @@ public class Matrice {
         Matrice resultat = new Matrice(3,1,"resultat");
         if (this.getWidth()==3 && matrice1.getWidth()==3){
             resultat.getMatriceTab()[0][0] =
-                    (this.getMatriceTab()[1][0]*matrice1.getMatriceTab()[2][0])
-                            -(this.getMatriceTab()[2][0]*matrice1.getMatriceTab()[1][0]);
-            resultat.getMatriceTab()[1][0] =
-                    (this.getMatriceTab()[2][0]*matrice1.getMatriceTab()[0][0])
-                            -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[2][0]);
-            resultat.getMatriceTab()[2][0] =
-                    (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[1][0])
-                            -(this.getMatriceTab()[1][0]*matrice1.getMatriceTab()[0][0]);
+                    (this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][2])
+                            -(this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][1]);
+            resultat.getMatriceTab()[0][1] =
+                    (this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][0])
+                            -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][2]);
+            resultat.getMatriceTab()[0][2] =
+                    (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][1])
+                            -(this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][0]);
             return resultat;
         }
         return null;
@@ -240,63 +235,6 @@ public class Matrice {
         }
         return resultat;
     }
-    /*
-    public double determinant(){
-        double det = 1;
-        Matrice temp = new Matrice(this.getWidth(),this.height);
-        for (int i=0;i< this.getWidth();i++){
-            for (int j=0;j<this.getHeight();j++){
-                temp.getMatriceTab()[i][j] = this.getMatriceTab()[i][j];
-            }
-        }
-        if (verifierCarre()){
-            if (temp.getWidth()==1){
-                det = temp.getMatriceTab()[0][0];
-                return det;
-            }
-            else if (temp.getWidth()==2){
-                det = temp.getMatriceTab()[0][0] * temp.getMatriceTab()[1][1] - (temp.getMatriceTab()[1][0] * temp.getMatriceTab()[0][1]);
-                return det;
-            }
-            else {
-                double constante = 1;
-
-                for (int i=1; i<temp.getHeight(); i++) {
-                    int[] inconnues = new int[temp.getWidth()-i];
-
-                    for (int j = 0; j < i; j++) {
-                        try {
-                            for (int k=0; k<temp.getWidth(); k++){
-                                inconnues[k] = (temp.getMatriceTab()[i+k][j] / temp.getMatriceTab()[i - 1 +k][j]);
-                            }
-
-                        }
-                        catch (Exception e){
-                            inconnues[j]=0;
-                        }
-
-                        for (int k=0; k<temp.getWidth(); k++){
-                            for (int l=temp.getWidth()+i; l<temp.getWidth(); l++)
-                            temp.getMatriceTab()[i][k]=temp.getMatriceTab()[i][k]-(inconnues[k]*temp.getMatriceTab()[i-1][k]);
-                        }
-                    }
-                }
-                for (int i=0; i<temp.getWidth();i++)
-                    constante=temp.getMatriceTab()[i][i]*constante;
-                for (int i=0; i<temp.getWidth();i++){
-                    System.out.println("---");
-                    for (int j=0; j<temp.getWidth();j++)
-                        System.out.println(temp.getMatriceTab()[i][j]);
-                }
-
-
-                return constante;
-                }
-            }
-            return 2;
-        }
-        */
-
 
         public double nouveauDeterminant() {
             Matrice temp = new Matrice(this.getWidth(), this.height, this.matriceTab,"resultat");
