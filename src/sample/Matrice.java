@@ -199,12 +199,18 @@ public class Matrice {
             resultat.getMatriceTab()[0][0] =
                     (this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][2])
                             -(this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][1]);
+            resultat.getDescription().add(this.getNom()+" Déterminant : ("+this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][2]+
+                    ") - ("+this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][1]+")");
             resultat.getMatriceTab()[0][1] =
                     (this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][0])
                             -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][2]);
+            resultat.getDescription().add(this.getNom()+" Déterminant : ("+this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][0]+
+                    ") - ("+this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][2]+")");
             resultat.getMatriceTab()[0][2] =
                     (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][1])
                             -(this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][0]);
+            resultat.getDescription().add(this.getNom()+" Déterminant : ("+this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][1]+
+                    ") - ("+this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][0]+")");
             return resultat;
         }
         return null;
@@ -215,6 +221,7 @@ public class Matrice {
             for (int j=0;j<this.getWidth();j++){
                 for (int i=0;i<this.getHeight();i++){
                     resultat.getMatriceTab()[i][j]= this.getMatriceTab()[i][j] * matrice1.getMatriceTab()[i][j];
+                    resultat.getDescription().add(this.getNom()+" X "+matrice1.getNom()+" Profuit d'Hadamard : "+this.getMatriceTab()[i][j]+"*"+matrice1.getMatriceTab()[i][j]);
                 }
             }
             return resultat;
@@ -225,10 +232,13 @@ public class Matrice {
     public Matrice produitTensoriel(Matrice matrice){
         Matrice resultat = new Matrice(this.getWidth()*2,this.getHeight()*2,"resultat");
         for (int i1=0;i1<this.getHeight();i1++){
-            for (int j1=0;j1<this.getWidth();i1++){
+            for (int j1=0;j1<this.getWidth();j1++){
                 for (int i2=0;i2<matrice.getHeight();i2++){
                     for (int j2=0;j2<matrice.getWidth();j2++){
                         resultat.getMatriceTab()[i1*matrice.getHeight()+i2][j1*matrice.getWidth()+j2] = this.getMatriceTab()[i1][j1]*matrice.getMatriceTab()[i2][j2];
+                        resultat.getDescription().add(this.getNom()+" X "+matrice.getNom()+" Produit Tensoriel : ("+i1*matrice.getHeight()+i2+","+j1*matrice.getWidth()+j2+") ="+
+                                this.getMatriceTab()[i1][j1]+"*"+matrice.getMatriceTab()[i2][j2]);
+
                     }
                 }
             }
@@ -243,6 +253,7 @@ public class Matrice {
             if (verifierCarre()) {
                 if (temp.getWidth() == 1) {
                     det = temp.getMatriceTab()[0][0];
+
                     return det;
                 } else if (temp.getWidth() == 2) {
                     det = temp.getMatriceTab()[0][0] * temp.getMatriceTab()[1][1] - (temp.getMatriceTab()[1][0] * temp.getMatriceTab()[0][1]);

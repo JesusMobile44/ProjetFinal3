@@ -120,11 +120,29 @@ class MatriceTest {
 
     @org.junit.jupiter.api.Test
     void produitHadamard() {
+        double[][] results = {{-4,-102},
+                {1,-65682},
+                {4.004,-20.5368}};
+
+        Matrice test = matrices.get(11).produitHadamard(matrices.get(12));
+
+        for (int i =0; i<test.getHeight(); i++)
+            for (int j=0; j<test.getWidth(); j++)
+                assertEquals(results[i][j], test.getMatriceTab()[i][j]);
     }
 
     @org.junit.jupiter.api.Test
     void produitTensoriel() {
-    }
+        double[][] results ={{10,4,10,4},
+        {0,-2,0,-2},
+        {5,2,-15,-6},
+        {0,-1,-0.0,3}};
+        Matrice test = matrices.get(13).produitTensoriel(matrices.get(14));
+
+        for (int i =0; i<test.getHeight(); i++)
+            for (int j=0; j<test.getWidth(); j++)
+                assertEquals(results[i][j], test.getMatriceTab()[i][j]);
+}
 
     @org.junit.jupiter.api.Test
     void nouveauDeterminant() {
