@@ -197,23 +197,23 @@ public class Matrice {
         Matrice resultat = new Matrice(3,1,"resultat");
         if (this.getWidth()==3 && matrice1.getWidth()==3){
             resultat.getMatriceTab()[0][0] =
-                    (this.getMatriceTab()[1][0]*matrice1.getMatriceTab()[2][0])
-                            -(this.getMatriceTab()[2][0]*matrice1.getMatriceTab()[1][0]);
+                    (this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][2])
+                            -(this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][1]);
             resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
-                    this.getMatriceTab()[1][0]+"*"+matrice1.getMatriceTab()[2][0])+
-                    "-"+(this.getMatriceTab()[2][0]+"*"+matrice1.getMatriceTab()[1][0]));
-            resultat.getMatriceTab()[1][0] =
-                    (this.getMatriceTab()[2][0]*matrice1.getMatriceTab()[0][0])
-                            -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[2][0]);
+                    this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][2])+
+                    "-"+(this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][1]));
+            resultat.getMatriceTab()[0][1] =
+                    (this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][0])
+                            -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][2]);
             resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
-                    this.getMatriceTab()[2][0]+"*"+matrice1.getMatriceTab()[0][0])+
-                    "-"+(this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[2][0]));
-            resultat.getMatriceTab()[2][0] =
-                    (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[1][0])
-                            -(this.getMatriceTab()[1][0]*matrice1.getMatriceTab()[0][0]);
+                    this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][0])+
+                    "-"+(this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][2]));
+            resultat.getMatriceTab()[0][2] =
+                    (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][1])
+                            -(this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][0]);
             resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
-                    this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[1][0])+
-                    "-"+(this.getMatriceTab()[1][0]+"*"+matrice1.getMatriceTab()[0][0]));
+                    this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][1])+
+                    "-"+(this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][0]));
             return resultat;
         }
         return null;

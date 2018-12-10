@@ -16,7 +16,7 @@
                   <Menu mnemonicParsing="false" text="Importer">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#creerTabImportation" text="Matrices" />
-                        <MenuItem mnemonicParsing="false" onAction="#importerOperations" text="Matrices et opérations" />
+                        <MenuItem mnemonicParsing="false" onAction="#importerOpMenu" text="Matrices et opérations" />
                     </items>
                   </Menu>
               </items>
@@ -28,7 +28,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#transposition" text="Transposition" />
                   <MenuItem mnemonicParsing="false" onAction="#inversion" text="Inversion" />
                   <MenuItem mnemonicParsing="false" onAction="#calculDeterminant" text="Déterminant" />
-                  <MenuItem mnemonicParsing="false" onAction="#operationsMixtes" text="Autres opérations" />
+                  <MenuItem mnemonicParsing="false" onAction="#opeMixtesMenu" text="Autres opérations" />
               </items>
             </Menu>
          </menus>

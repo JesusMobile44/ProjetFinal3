@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <Root>
+    <Matrices>
+        <MatriceA>
+            <Height>3</Height>
+            <Width>3</Width>
+            <Data>
+                1,2,3,4,5,6,7,8,9
+            </Data>
+        </MatriceA>
 
+
+        <MatriceB>
+            <Height>3</Height>
+            <Width>3</Width>
+            <Data>
+                1,2,3,4,5,6,7,8,9
+            </Data>
+        </MatriceB>
+
+        <Ordre>0,1,1</Ordre>
+    </Matrices>
+    <Operations>
+        addition,produit matriciel
+    </Operations>
 </Root>
