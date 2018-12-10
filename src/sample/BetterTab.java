@@ -113,6 +113,12 @@ public class BetterTab extends Tab {
                 VBox vBox = new VBox();
                 vBox.getChildren().add(labels.get(i));
                 vBox.getChildren().add(matrices.get(i));
+                if (i==nombre){
+                    TextArea demarche = new TextArea();
+                    demarche.setWrapText(true);
+                    vBox.getChildren().add(demarche);
+                }
+
                 vBox.setSpacing(50);
                 vBoxes.add(vBox);
         }
@@ -135,6 +141,10 @@ public class BetterTab extends Tab {
         matrices.remove(this.nombreDeMatrices);
         matrices.add(this.nombreDeMatrices, this.resultatView);
         vBoxes.get(nombreDeMatrices).getChildren().set(1, resultatView);
+        for (int j=0; j<resultatView.getMatriceVraie().getDescription().size(); j++){
+            TextArea textArea = (TextArea) getvBoxes().get(nombreDeMatrices).getChildren().get(getvBoxes().get(nombreDeMatrices).getChildren().size()-1);
+            textArea.setPromptText(textArea.getPromptText() + resultatView.getMatriceVraie().getDescription().get(j)+"\n");
+        }
     }
 
     public int getNombreDeMatrices() {
