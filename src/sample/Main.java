@@ -38,7 +38,9 @@ public class Main extends Application {
         root.setCenter(tabPane);
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("darcula.css");  //https://github.com/Mouse0w0/JavaFXDarculaTheme
+        primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
     }

@@ -526,7 +526,7 @@ public class Controller {
         ArrayList[] retour = new ArrayList[2];
 
         try{
-            File file = new File("MatricesEtOperations.tld");
+            File file = new File("MatricesEtOperations.xml");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbf.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
