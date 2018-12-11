@@ -36,7 +36,7 @@ public class Main extends Application {
 
         root.setCenter(tabPane);
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Outil matriciel");
         Scene scene = new Scene(root);
         scene.getStylesheets().add("darcula.css");  //https://github.com/Mouse0w0/JavaFXDarculaTheme
         primaryStage.setScene(scene);
