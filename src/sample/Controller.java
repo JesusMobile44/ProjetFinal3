@@ -11,7 +11,6 @@ import javafx.stage.FileChooser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import view.MatriceView;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,19 +23,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Controller {
-
-    /*
-                  <Menu mnemonicParsing="false" text="Multiplication de matrices">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#produitMatriciel" text="Produit matriciel" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitVectoriel" text="Produit vectoriel" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitHadamard" text="Produit d'Hadamard" />
-                        <MenuItem mnemonicParsing="false" onAction="#produitTensoriel" text="Produit tensoriel" />
-                     </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#addition" text="Addition" />
-                  <MenuItem mnemonicParsing="false" onAction="#soustraction" text="Soustraction" />
-    */
 
     //Opérations
 
@@ -254,7 +240,7 @@ public class Controller {
 
         if (listeMatricesAOperer.size()==1)
         ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                new MatriceView(choixMatrice().get(0).multiParNombre(dialogueMultiplicationParScalaire())));
+                new MatriceView(listeMatricesAOperer.get(0).multiParNombre(dialogueMultiplicationParScalaire())));
 
         else
             erreurNombreMatrice("Veuillez ne sélectionner qu'une seule matrice lors de la multiplication par un scalaire.");
@@ -270,48 +256,7 @@ public class Controller {
         return Integer.parseInt(alerte.showAndWait().get());
     }
 
-    /*
-    public void addition(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++) {
-                System.out.println("listeMatricesAOperer    "+listeMatricesAOperer.get(i).getMatriceTab()[0][0]);
-                resultatIntermediaire = resultatIntermediaire.additionSoustraction(listeMatricesAOperer.get(i + 1), true);
-            }
-
-            System.out.println("resultat intermediaire    "+resultatIntermediaire.getMatriceTab()[0][0]);
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-
-            System.out.println("final    "+((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).getResultatView().getMatriceVraie().getMatriceTab()[0][0]);
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors de l'addition de matrices");
-    }
-
-
-    public void soustraction(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
-
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++)
-                resultatIntermediaire=resultatIntermediaire.additionSoustraction(listeMatricesAOperer.get(i+1), false);
-
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors de la soustraction de matrices");
-    }
-
-*/
 
     public void puissance(){
         int positionTabActive = trouverMatrice();
@@ -357,76 +302,7 @@ public class Controller {
         else
             erreurNombreMatrice("Veuillez ne sélectionner qu'une seule matrice lors de l'inversion d'une matrice.");
     }
-    /*
-    public void produitMatriciel(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
 
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++)
-                resultatIntermediaire=resultatIntermediaire.produitMatriciel(listeMatricesAOperer.get(i+1));
-
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors du produit matriciel");
-    }
-
-    public void produitVectoriel(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
-
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++)
-                resultatIntermediaire=resultatIntermediaire.produitVectoriel(listeMatricesAOperer.get(i+1));
-
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors du produit vectoriel");
-    }
-
-    public void produitHadamard(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
-
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++)
-                resultatIntermediaire=resultatIntermediaire.produitHadamard(listeMatricesAOperer.get(i+1));
-
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors du produit d'Hadamard");
-    }
-
-    public void produitTensoriel(){
-        int positionTabActive = trouverMatrice();
-        ArrayList<Matrice> listeMatricesAOperer = choixMatrice();
-
-        if (listeMatricesAOperer.size()!=1) {
-            Matrice resultatIntermediaire = listeMatricesAOperer.get(0);
-            for (int i=0; i<listeMatricesAOperer.size()-1;i++)
-                resultatIntermediaire=resultatIntermediaire.produitTensoriel(listeMatricesAOperer.get(i+1));
-
-            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
-                    new MatriceView(resultatIntermediaire));
-        }
-
-        else
-            erreurNombreMatrice("Veuillez sélectionner plus qu'une matrice lors du produit tensoriel");
-    }
-
-*/
 
     public void calculDeterminant(){
         int positionTabActive = trouverMatrice();

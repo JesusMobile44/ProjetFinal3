@@ -4,11 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import view.MatriceView;
 
 import java.util.ArrayList;
 
@@ -61,10 +58,7 @@ public class BetterTab extends Tab {
         Spinner spinnerHauteur = new Spinner(1,10,1);
         Spinner spinnerLargeur = new Spinner(1,10,1);
 
-        HBox root = new HBox(
-                new Label("Matrice 1"),
-                creation(spinnerLargeur, spinnerHauteur)
-        );
+        HBox root = new HBox(creation(spinnerLargeur, spinnerHauteur));
 
 
         Dialog dialog = new Dialog();
@@ -142,6 +136,7 @@ public class BetterTab extends Tab {
         matrices.remove(this.nombreDeMatrices);
         matrices.add(this.nombreDeMatrices, this.resultatView);
         vBoxes.get(nombreDeMatrices).getChildren().set(1, resultatView);
+
         for (int j=0; j<resultatView.getMatriceVraie().getDescription().size(); j++){
             TextArea textArea = (TextArea) getvBoxes().get(nombreDeMatrices).getChildren().get(getvBoxes().get(nombreDeMatrices).getChildren().size()-1);
             textArea.setText(textArea.getText() + resultatView.getMatriceVraie().getDescription().get(j)+"\n");
