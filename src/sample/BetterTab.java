@@ -38,8 +38,9 @@ public class BetterTab extends Tab {
         this.nombreDeMatrices = nombreDeMatrices;
         this.resultatView = new MatriceView(new Matrice(3,3));
 
-        for (int i=0; i<liste.size(); i++)
+        for (int i=0; i<liste.size(); i++){
             matrices.add(new MatriceView(liste.get(i)));
+        }
         matrices.add(resultatView);
 
         creerLabels(nombreDeMatrices);
@@ -143,7 +144,7 @@ public class BetterTab extends Tab {
         vBoxes.get(nombreDeMatrices).getChildren().set(1, resultatView);
         for (int j=0; j<resultatView.getMatriceVraie().getDescription().size(); j++){
             TextArea textArea = (TextArea) getvBoxes().get(nombreDeMatrices).getChildren().get(getvBoxes().get(nombreDeMatrices).getChildren().size()-1);
-            textArea.setPromptText(textArea.getPromptText() + resultatView.getMatriceVraie().getDescription().get(j)+"\n");
+            textArea.setText(textArea.getText() + resultatView.getMatriceVraie().getDescription().get(j)+"\n");
         }
     }
 

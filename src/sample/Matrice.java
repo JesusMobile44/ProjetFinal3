@@ -92,9 +92,11 @@ public class Matrice {
                 for (int i=0;i<resultat.getHeight();i++){
                     if (add){
                         resultat.getMatriceTab()[i][j] = this.getMatriceTab()[i][j] + matrice1.getMatriceTab()[i][j];
+                        resultat.getDescription().add(" Addition : "+this.getMatriceTab()[i][j]+ "+"+matrice1.getMatriceTab()[i][j]+" = "+resultat.getMatriceTab()[i][j]);
                     }
                     else if (!add){
                         resultat.getMatriceTab()[i][j] = this.getMatriceTab()[i][j] - matrice1.getMatriceTab()[i][j];
+                        resultat.getDescription().add(" Addition : "+this.getMatriceTab()[i][j]+ "-"+matrice1.getMatriceTab()[i][j]+" = "+resultat.getMatriceTab()[i][j]);
                     }
                 }
             }
@@ -106,6 +108,10 @@ public class Matrice {
     public Matrice inversion() {
         Matrice temp = new Matrice(this.getWidth(), this.getHeight(), this.getMatriceTab(),"resultat");
         double detDepart = temp.nouveauDeterminant();
+        for (int i=0;i<this.getDescription().size();i++){
+            temp.getDescription().add(this.getDescription().get(i));
+        }
+        this.getDescription().clear();
 
         if (detDepart != 0) {
 
@@ -132,10 +138,22 @@ public class Matrice {
             for (int i = 0; i < temp.getWidth(); i++) {
                 for (int j = 0; j < temp.getWidth(); j++) {
                     Matrice calculs = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[j][i],"resultat");
-                    if ((i + j) % 2 == 1)
+                    if ((i + j) % 2 == 1){
                         temp.getMatriceTab()[j][i] = (calculs.nouveauDeterminant() * -1);
-                    else
+                        for (int y=0;y<calculs.getDescription().size();y++){
+                            temp.getDescription().add(calculs.getDescription().get(y));
+                        }
+                        calculs.getDescription().clear();
+                    }
+
+                    else{
                         temp.getMatriceTab()[j][i] = (calculs.nouveauDeterminant());
+                        for (int y=0;y<calculs.getDescription().size();y++){
+                            temp.getDescription().add(calculs.getDescription().get(y));
+                        }
+                        calculs.getDescription().clear();
+                    }
+
                 }
             }
 
@@ -150,7 +168,7 @@ public class Matrice {
         for (int j=0;j<this.getWidth();j++){
             for (int i=0;i<this.getHeight();i++){
                 resultat.getMatriceTab()[i][j]= (this.getMatriceTab()[i][j])*multi;
-                resultat.getDescription().add(this.getNom()+" Multiplication par un scalaire : "+ this.getMatriceTab()[i][j]+" * "+ multi);
+                resultat.getDescription().add(" Multiplication par un scalaire : "+ this.getMatriceTab()[i][j]+" * "+ multi);
             }
         }
         return resultat;
@@ -161,7 +179,7 @@ public class Matrice {
             for (int j=0;j<this.getWidth();j++){
                 for (int i=0;i<this.getHeight();i++){
                     resultat.getMatriceTab()[i][j]= (this.getMatriceTab()[j][i]);
-                    resultat.getDescription().add(this.getNom()+" Transposition : "+(j+1)+","+(i+1)+" ==> "+(i+1)+","+(j+1));
+                    resultat.getDescription().add(" Transposition : "+(j+1)+","+(i+1)+" ==> "+(i+1)+","+(j+1));
                 }
             }
             return resultat;
@@ -175,7 +193,7 @@ public class Matrice {
                 for (int j=0;j<resultat.getWidth();j++){
                     for (int k=0;k<this.getWidth();k++){
                         resultat.getMatriceTab()[i][j] = resultat.getMatriceTab()[i][j]+(this.getMatriceTab()[i][k] * matrice1.getMatriceTab()[k][j]);
-                        resultat.getDescription().add(this.getNom()+"*"+matrice1.getNom()+" Produit Matriciel : "+this.getMatriceTab()[i][k] +"*"+ matrice1.getMatriceTab()[k][i]+" = "+resultat.getMatriceTab()[i][j]);
+                        resultat.getDescription().add(" Produit Matriciel : "+this.getMatriceTab()[i][k] +"*"+ matrice1.getMatriceTab()[k][i]+" = "+resultat.getMatriceTab()[i][j]);
                     }
                 }
             }
@@ -199,19 +217,19 @@ public class Matrice {
             resultat.getMatriceTab()[0][0] =
                     (this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][2])
                             -(this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][1]);
-            resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
+            resultat.getDescription().add((" Produit Vectoriel : "+
                     this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][2])+
                     "-"+(this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][1]));
             resultat.getMatriceTab()[0][1] =
                     (this.getMatriceTab()[0][2]*matrice1.getMatriceTab()[0][0])
                             -(this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][2]);
-            resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
+            resultat.getDescription().add((" Produit Vectoriel : "+
                     this.getMatriceTab()[0][2]+"*"+matrice1.getMatriceTab()[0][0])+
                     "-"+(this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][2]));
             resultat.getMatriceTab()[0][2] =
                     (this.getMatriceTab()[0][0]*matrice1.getMatriceTab()[0][1])
                             -(this.getMatriceTab()[0][1]*matrice1.getMatriceTab()[0][0]);
-            resultat.getDescription().add((this.getNom()+" x "+matrice1.getNom()+" Produit Vectoriel : "+
+            resultat.getDescription().add((" Produit Vectoriel : "+
                     this.getMatriceTab()[0][0]+"*"+matrice1.getMatriceTab()[0][1])+
                     "-"+(this.getMatriceTab()[0][1]+"*"+matrice1.getMatriceTab()[0][0]));
             return resultat;
@@ -224,8 +242,9 @@ public class Matrice {
             for (int j=0;j<this.getWidth();j++){
                 for (int i=0;i<this.getHeight();i++){
                     resultat.getMatriceTab()[i][j]= this.getMatriceTab()[i][j] * matrice1.getMatriceTab()[i][j];
-                    resultat.getDescription().add(this.getNom()+" X "+matrice1.getNom()+" Profuit d'Hadamard : "+this.getMatriceTab()[i][j]+"*"+matrice1.getMatriceTab()[i][j]);
-                    resultat.getDescription().add(this.getNom()+" && "+matrice1.getNom()+" Produit d'Hadamard : "+
+                    resultat.getDescription().add(" Profuit d'Hadamard : "+
+                            this.getMatriceTab()[i][j]+"*"+matrice1.getMatriceTab()[i][j]);
+                    resultat.getDescription().add(" Produit d'Hadamard : "+
                             this.getMatriceTab()[i][j] +"*"+ matrice1.getMatriceTab()[i][j]);
                 }
             }
@@ -241,10 +260,8 @@ public class Matrice {
                 for (int i2=0;i2<matrice.getHeight();i2++){
                     for (int j2=0;j2<matrice.getWidth();j2++){
                         resultat.getMatriceTab()[i1*matrice.getHeight()+i2][j1*matrice.getWidth()+j2] = this.getMatriceTab()[i1][j1]*matrice.getMatriceTab()[i2][j2];
-                        resultat.getDescription().add(this.getNom()+" X "+matrice.getNom()+" Produit Tensoriel : ("+i1*matrice.getHeight()+i2+","+j1*matrice.getWidth()+j2+") ="+
-                                this.getMatriceTab()[i1][j1]+"*"+matrice.getMatriceTab()[i2][j2]);
-                        resultat.getDescription().add(this.getNom()+" && "+matrice.getNom()+" Produit d'Hadamard : ("+ (j2+1)+","+(i2+1)+") = "+
-                                this.getMatriceTab()[i1][j1]+"*"+matrice.getMatriceTab()[i2][j2]);
+                        resultat.getDescription().add(" Produit Tensoriel : ("+(i1*matrice.getHeight()+i2+1)+","+(j1*matrice.getWidth()+j2+1)+") ==> "+
+                                this.getMatriceTab()[i1][j1]+"*"+matrice.getMatriceTab()[i2][j2]+" = "+resultat.getMatriceTab()[i1*matrice.getHeight()+i2][j1*matrice.getWidth()+j2]);
                     }
                 }
             }
@@ -252,44 +269,61 @@ public class Matrice {
         return resultat;
     }
 
-        public double nouveauDeterminant() {
-            Matrice temp = new Matrice(this.getWidth(), this.height, this.matriceTab,"resultat");
-            double det = 0;
-            double[][][] tabMatrices = new double[temp.getWidth()][temp.getWidth() - 1][temp.getWidth() - 1];
-            if (verifierCarre()) {
-                if (temp.getWidth() == 1) {
-                    det = temp.getMatriceTab()[0][0];
+    public Matrice determinant(){
+        Matrice resultat = new Matrice(1,1);
+        resultat.getMatriceTab()[0][0] =this.nouveauDeterminant();
+        for (int y=0;y<this.getDescription().size();y++){
+            resultat.getDescription().add(this.getDescription().get(y));
+        }
+        this.getDescription().clear();
+        return resultat;
+    }
 
-                    return det;
-                } else if (temp.getWidth() == 2) {
-                    det = temp.getMatriceTab()[0][0] * temp.getMatriceTab()[1][1] - (temp.getMatriceTab()[1][0] * temp.getMatriceTab()[0][1]);
-                    return det;
-                } else {
+    public double nouveauDeterminant() {
+        Matrice temp = new Matrice(this.getWidth(), this.height, this.matriceTab,"resultat");
+        double det = 0;
+        double[][][] tabMatrices = new double[temp.getWidth()][temp.getWidth() - 1][temp.getWidth() - 1];
+        if (verifierCarre()) {
+            if (temp.getWidth() == 1) {
+                det = temp.getMatriceTab()[0][0];
+                this.getDescription().add(" Déterminant : "+temp.getMatriceTab()[0][0]);
+                return det;
+            } else if (temp.getWidth() == 2) {
+                det = temp.getMatriceTab()[0][0] * temp.getMatriceTab()[1][1] - (temp.getMatriceTab()[1][0] * temp.getMatriceTab()[0][1]);
+                this.getDescription().add(" Déterminant : "+temp.getMatriceTab()[0][0]+" * "+temp.getMatriceTab()[1][1]+" - ("+
+                        (temp.getMatriceTab()[1][0]+" * "+temp.getMatriceTab()[0][1])+")");
+                return det;
+            } else {
 
 
-                    for (int i = 0; i < temp.getWidth(); i++) {
-                        for (int j = 1; j < temp.getWidth(); j++) {
-                            for (int k = 0; k < temp.getWidth() - 1; k++) {
-                                if (i <= k) {
-                                    tabMatrices[i][j - 1][k] = temp.getMatriceTab()[j][k + 1];
-                                } else {
-                                    tabMatrices[i][j - 1][k] = temp.getMatriceTab()[j][k];
-                                }
+                for (int i = 0; i < temp.getWidth(); i++) {
+                    for (int j = 1; j < temp.getWidth(); j++) {
+                        for (int k = 0; k < temp.getWidth() - 1; k++) {
+                            if (i <= k) {
+                                tabMatrices[i][j - 1][k] = temp.getMatriceTab()[j][k + 1];
+                            } else {
+                                tabMatrices[i][j - 1][k] = temp.getMatriceTab()[j][k];
                             }
                         }
                     }
-
-                    for (int i = 0; i < temp.getWidth(); i++) {
-                        Matrice intermediaire = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i],"intermediaire");
-                        if (i % 2 == 1)
-                            det += temp.getMatriceTab()[0][i] * intermediaire.nouveauDeterminant() * -1;
-                        else
-                            det += temp.getMatriceTab()[0][i] * intermediaire.nouveauDeterminant();
-                    }
-                    System.out.println(det + "determinant");
-                    return det;
                 }
+                for (int i = 0; i < temp.getWidth(); i++) {
+                    Matrice intermediaire = new Matrice(temp.getWidth() - 1, temp.getHeight() - 1, tabMatrices[i],"intermediaire");
+                    if (i % 2 == 1){
+                        double newDet = intermediaire.nouveauDeterminant();
+                        det += temp.getMatriceTab()[0][i] * newDet * -1;
+                        this.getDescription().add(" Determinant : ("+det+" + "+newDet+") * -1");
+                    }
+                    else{
+                        double newDet = intermediaire.nouveauDeterminant();
+                        det += temp.getMatriceTab()[0][i] * newDet;
+                        this.getDescription().add(" Determinant : ("+det+" + "+newDet+")");
+                    }
+                }
+                return det;
             }
-            return det;
         }
+        return det;
+    }
+
 }

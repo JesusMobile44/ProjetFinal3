@@ -357,7 +357,6 @@ public class Controller {
         else
             erreurNombreMatrice("Veuillez ne sélectionner qu'une seule matrice lors de l'inversion d'une matrice.");
     }
-
     /*
     public void produitMatriciel(){
         int positionTabActive = trouverMatrice();
@@ -435,6 +434,8 @@ public class Controller {
 
         if (listeMatricesAOperer.size()==1) {
             System.out.println(listeMatricesAOperer.get(0).nouveauDeterminant());
+            ((BetterTab) Main.getTabPane().getTabs().get(positionTabActive)).setResultatView(
+                    new MatriceView(listeMatricesAOperer.get(0).determinant()));
         }
 
         else
@@ -599,13 +600,13 @@ public class Controller {
         int positionTabActive = trouverMatrice();
         BetterTab betterTab =((BetterTab)Main.getTabPane().getTabs().get(positionTabActive));
         MatriceView matriceView = betterTab.getResultatView();
+        TextArea textArea = (TextArea) betterTab.getvBoxes().get(betterTab.getNombreDeMatrices()).getChildren().get(betterTab.getvBoxes().get(betterTab.getNombreDeMatrices()).getChildren().size()-1);
         Printer printer = Printer.getDefaultPrinter();
         PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
         PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
         printerJob.getJobSettings().setPageLayout(pageLayout);
         if (printerJob!=null){
-            boolean ok = printerJob.printPage(matriceView);
-            if (ok) {
+            if (printerJob.printPage(matriceView)&&printerJob.printPage(textArea)) {
                 printerJob.endJob();
             }
         }
